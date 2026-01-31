@@ -23,11 +23,13 @@ npm install
 
 1. Create a project at [Firebase Console](https://console.firebase.google.com)
 2. Enable **Authentication** → Email/Password sign-in method
-3. Copy `env.example` to `.env`:
+3. Enable **Firestore Database** (create database in production mode, then add rules from `firestore.rules`)
+4. Enable **Storage** (add rules from `storage.rules`)
+5. Copy `env.example` to `.env`:
    ```bash
    cp env.example .env
    ```
-4. Add your Firebase config to `.env` (Project Settings → General → Your apps):
+6. Add your Firebase config to `.env` (Project Settings → General → Your apps):
 
 ```
 EXPO_PUBLIC_FIREBASE_API_KEY=your_api_key
@@ -50,7 +52,7 @@ Then scan the QR code with Expo Go (Android) or Camera (iOS).
 
 - **Step 1**: Bootstrap Expo + Dependencies + Folder Structure ✓
 - **Step 2**: Firebase + Auth Screens (Login, Register) ✓
-- **Step 3**: Profile Setup + Photo Upload (pending)
+- **Step 3**: Profile Setup + Photo Upload + Firestore User Doc ✓
 - **Step 4**: Discover Deck + Swipe Actions (pending)
 - **Step 5**: Match Creation Logic (pending)
 - **Step 6**: Matches List + Chat (pending)
@@ -62,3 +64,12 @@ Then scan the QR code with Expo Go (Android) or Camera (iOS).
 - [ ] Session persists on app restart
 - [ ] Can logout from Profile tab
 - [ ] Navigation switches between Auth stack and App stack based on auth state
+
+## Test Checklist (Step 3)
+
+- [ ] User doc created in Firestore on registration
+- [ ] Can upload photos from library
+- [ ] Photos appear in profile
+- [ ] Can edit name/age/bio/gender/lookingFor/city
+- [ ] Changes persist to Firestore
+- [ ] Validation prevents invalid inputs

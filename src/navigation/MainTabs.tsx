@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { DiscoverScreen } from "@/screens/discover/DiscoverScreen";
 import { MatchesScreen } from "@/screens/matches/MatchesScreen";
-import { ProfileScreen } from "@/screens/profile/ProfileScreen";
+import { ProfileStack } from "@/navigation/ProfileStack";
 
 export type MainTabParamList = {
   Discover: undefined;
@@ -36,7 +36,7 @@ export function MainTabs() {
       />
       <Tab.Screen
         name="Profile"
-        component={ProfileScreen}
+        component={ProfileStack}
         options={{
           tabBarLabel: "Profile",
         }}

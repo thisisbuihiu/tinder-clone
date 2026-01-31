@@ -10,6 +10,7 @@ import {
   ScrollView,
 } from "react-native";
 import { signUp } from "@/services/auth";
+import { createUser } from "@/services/firestore";
 import { getEmailError, getPasswordError } from "@/utils/validation";
 import { config } from "@/constants/config";
 
@@ -43,7 +44,12 @@ export function RegisterScreen({ navigation }: RegisterScreenProps) {
 
     setIsLoading(true);
     try {
-      await signUp(email.trim(), password);
+      const { user } = await signUp(email.trim(), password);
+      try {
+        await createUser(user.uid, {});
+      } catch {
+        // User doc creation failed; they can complete profile in EditProfile
+      }
     } catch (err: unknown) {
       const message =
         err instanceof Error ? err.message : "Failed to sign up. Please try again.";
