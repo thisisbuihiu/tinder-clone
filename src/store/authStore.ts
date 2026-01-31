@@ -6,18 +6,23 @@ interface AuthState {
   user: User | null;
   isLoading: boolean;
   isInitialized: boolean;
-  initialize: () => void;
+  setUser: (user: User | null) => void;
+  setLoading: (loading: boolean) => void;
+  initializeAuth: () => (() => void) | undefined;
 }
 
-export const useAuthStore = create<AuthState>((set) => ({
+export const useAuthStore = create<AuthState>((set, get) => ({
   user: null,
   isLoading: true,
   isInitialized: false,
-  initialize: () => {
-    if (useAuthStore.getState().isInitialized) return;
-    set({ isInitialized: true });
-    subscribeToAuthState((user) => {
-      set({ user, isLoading: false });
+  setUser: (user) => set({ user }),
+  setLoading: (isLoading) => set({ isLoading }),
+  initializeAuth: () => {
+    if (get().isInitialized) return;
+    set({ isLoading: true });
+    const unsubscribe = subscribeToAuthState((user) => {
+      set({ user, isLoading: false, isInitialized: true });
     });
+    return unsubscribe;
   },
 }));

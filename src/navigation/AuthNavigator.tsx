@@ -1,8 +1,23 @@
-/**
- * Stack navigator for auth screens (Login, Register)
- * Will be implemented in Step 2
- */
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { LoginScreen } from "@/screens/auth/LoginScreen";
+import { RegisterScreen } from "@/screens/auth/RegisterScreen";
+
+export type AuthStackParamList = {
+  Login: undefined;
+  Register: undefined;
+};
+
+const Stack = createNativeStackNavigator<AuthStackParamList>();
+
 export function AuthNavigator() {
-  // Placeholder - will wrap LoginScreen and RegisterScreen
-  return null;
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="Register" component={RegisterScreen} />
+    </Stack.Navigator>
+  );
 }
